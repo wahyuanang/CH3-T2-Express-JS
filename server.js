@@ -51,18 +51,22 @@ app.post("/api/v1/cars", (req, res) => {
 
   // proses write ke  d alam datbasenya
   //strungify untuk mengubah object menjadi string
-  fs.writeFileSync(`${__dirname}/data/cars.json`, JSON.stringify(cars), (err) => {     // menulis data ke dalam file json langsung saja taruh data cars nya menggunakan callback
-    res.status(201).json({
-      status: "success",
-      message: "succes get data brok!!!",
-      isSuccess: true,
-      totalData: cars.length,
-      data: {
-        car: newCar,
-      },
-    });
-  }) 
-
+  fs.writeFileSync(
+    `${__dirname}/data/cars.json`,
+    JSON.stringify(cars),
+    (err) => {
+      // menulis data ke dalam file json langsung saja taruh data cars nya menggunakan callback
+      res.status(201).json({
+        status: "success",
+        message: "succes get data brok!!!",
+        isSuccess: true,
+        totalData: cars.length,
+        data: {
+          car: newCar,
+        },
+      });
+    }
+  );
 
   // const cars = JSON.parse(
   //   fs.readFileSync(`${__dirname}/data/cars.json`, "utf-8")
