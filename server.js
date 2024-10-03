@@ -81,14 +81,28 @@ app.post("/api/v1/cars", (req, res) => {
 app.get("/api/v1/cars/:id", (req, res) => {
   // select * from FSW2 where id = "1" or namae = 'wahyu' jika menggunakan row query
   const id = req.params.id;
-  console.log(id);
+
+  //untuk mengecek tipedatanya
+  console.log("typeof id: ");
+  console.log(typeof id);
 
   // pelajari maksud dibawah ini
   // bedanya === dan == adalah === itu strict maka akan sangat sensitif dengan tipe data meskipun, sedangkan == itu tidak strict dia tdak akan memperhatikan tipe data meskipun dia itu string atau number
   const car = cars.find((i) => i.id === id);
 
+  //basic error handling jika data tidak ditemukan
+  if (!car) {
+    console.log("Tidak ada data yang ditemukan");
+    return res.status(404).json({
+      status: "failed",
+      message: `failed get car data id : ${id}`,
+      isSuccess: false,
+      data: null,
+    });
+  }
+
   // menulis data ke dalam file json langsung saja taruh data cars nya menggunakan callback
-  return res.status(201).json({
+  res.status(201).json({
     status: "success",
     message: "succes get data brok!!!",
     isSuccess: true,
